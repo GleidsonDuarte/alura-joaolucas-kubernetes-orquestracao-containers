@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aplicacao-noticia-deployment
+spec:
+  selector:
+    matchLabels:
+      name: aplicacao-noticia-pod
+  template:
+    metadata:
+      labels:
+        name: aplicacao-noticia-pod
+    spec:
+      containers:
+        - name: container-aplicacao-cpu
+          image: jnlucas/noticia-alura:v3
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 400m
+              
+# Comando no terminal para fazer o auto escalonamento dos PODs no deployment 
+# kubectl autoscale deployment aplicacao-noticia-deployment --cpu-percent=20 --min=1 --max=10
+
